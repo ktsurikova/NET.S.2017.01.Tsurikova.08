@@ -50,7 +50,7 @@ namespace Logic
                 case "NP":
                     return $"Name: {customer.Name}\nPhone: {customer.ContactPhone}";
                 default:
-                    return ((IFormattable)arg).ToString(format, formatProvider);
+                    return customer.ToString(format, formatProvider);
             }
         }
     }
