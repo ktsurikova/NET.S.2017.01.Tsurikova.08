@@ -26,11 +26,5 @@ namespace LogicTests
             return string.Format(new CustomerFormat(), format,
                 new Customer(name, phone, revenue));
         }
-
-        [Test]
-        public void Format_NotCustomer_ArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => string.Format(new CustomerFormat(), "{0:C}", 4));
-        }
     }
 }

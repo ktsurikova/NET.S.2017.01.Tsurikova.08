@@ -37,7 +37,8 @@ namespace Logic
         /// <returns>string representation</returns>
         public string Format(string format, object arg, IFormatProvider formatProvider)
         {
-            if (!(arg is Customer)) throw new ArgumentException($"{nameof(arg)} isn't a customer");
+            if (ReferenceEquals(arg, null)||!(arg is Customer))
+                return HandleOtherFormats(format, arg, formatProvider);
             if (ReferenceEquals(formatProvider, null))
                 formatProvider = parentProvider;
 
@@ -52,6 +53,13 @@ namespace Logic
                 default:
                     return customer.ToString(format, formatProvider);
             }
+        }
+
+        private string HandleOtherFormats(string format, object arg, IFormatProvider provider)
+        {
+            if (arg is IFormattable)
+                return ((IFormattable)arg).ToString(format, provider);
+            return arg?.ToString() ?? string.Empty;
         }
     }
 }
